@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random Word Generator</title>
+</head>
+<body>
+    <h1>Random Word (attempt #{{ request.session.counter }})</h1>
+    <h1>{{ request.session.word }}</h1>
+    <form action="/" method="POST">
+        {% csrf_token %}
+        <button type="submit">Generate!</button>
+    </form>
+    <a href="/destroy">Reset attempts</a>
+
+    <h1>Author List</h1>
+    <ul>
+    {% for a in authors %}
+        <li>{{a.name}}
+        <ul>
+            <!-- looping through each author's books! -->
+            {% for book in a.books.all %}	
+            <li><em>{{book.title}}</em></li>
+            {% endfor %}
+        </ul>
+        </li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books and Authors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    *{
+        margin: 0px;
+        padding: 0px;
+        
+    }
+    form{
+        height: 400px;
+        width: auto;
+        padding: 5px;
+        display: inline-block;
+    }
+    .viewAuthors{
+        display: inline-block;
+        margin-left: 90px;
+        height: auto;
+        width: 500px;
+    }
+    .addAnAuthor{
+        background: rgba(255, 255, 255, 0.87);
+        display: inline-block;
+    }
+    th, tr, td{
+        border: 1px solid black;
+        text-align: center;  
+    }
+    a{
+        margin: 10px;
+    }
+    h1{
+        border-top: 1px solid black;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/book"><button type="button" class="btn btn-secondary">Add a Book</button></a>
+            <a href="/author"><button type="button" class="btn btn-secondary">Add an Author</button></a>     
+        </div>
+        <div class="author_info">
+            <h1>{{author_info.first_name}} {{author_info.last_name}}</h1>
+            <h3>ID: {{author_info.id}}</h3>
+            <h3>Notes: </h3><p>{{author_info.notes}}</p>
+            <h3>Books: </h3>
+
+            <ul>
+                {% for book in author_info.books.all %}
+                    <li>{{book.title}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <form action="/book_add" method="POST">
+            {% csrf_token %}
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add a Book</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for book in all_books %}
+                        <a class="dropdown-item" href="/add_book">{{book.title}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
